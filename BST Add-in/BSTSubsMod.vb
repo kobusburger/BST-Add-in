@@ -9,7 +9,6 @@
             Dim CostType As String
             Dim EVCCol As Long
             Dim DetCol As Long
-            Dim BSTShName As String
             Dim XlSh As Excel.Worksheet
             Dim XlWb As Excel.Workbook
             Dim xlAp As Excel.Application
@@ -21,7 +20,7 @@
             xlAp = Globals.ThisAddIn.Application
             XlWb = xlAp.ActiveWorkbook
             XlSh = XlWb.ActiveSheet
-            BSTShName = XlSh.Name
+            XlSh.Name = "BST"
             'MsgBox("Sheet:" & xlAp.Name & "-" & XlWb.Name & "-" & XlSh.Name)
             If XlSh.Cells(3, 2).value <> "Project Detail Charges" Then
                 MsgBox("Cell B3 does not contain 'Project Detail Charges'" & vbNewLine & "The report must be created via Project/ Reporting/ Project Detail Charges")
@@ -111,23 +110,25 @@
                 End If
                 Ry = Ry + 1
             Loop
-            XlSh.ListObjects.Add(Microsoft.Office.Interop.Excel.XlListObjectSourceType.xlSrcRange,
-               XlSh.Range("A1", "Y" & LaasteRy), , Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes).Name = "BST"
+            XlSh.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange,
+               XlSh.Range("A1", "Y" & LaasteRy), , Excel.XlYesNoGuess.xlYes).Name = "BST"
 
             'Add month column formula
             XlSh.Range("X2").Value = "=TEXT(P2,""yyyy-mm"")"
             'XlSh.Range("X2", "X" & LaasteRy).FillDown()
             'XlSh.Range("P2", "Q" & LaasteRy).NumberFormat = "yyyy-mm-dd" 'Format dates
 
+            'Add Team table
             XlWb.Sheets.Add(, XlSh)
             XlWb.ActiveSheet.name = "Team"
-
-            'Add Team table
             XlWb.ActiveSheet.Cells(1, 1) = "EVC Code"
             XlWb.ActiveSheet.Cells(1, 2) = "Name"
             XlWb.ActiveSheet.Cells(1, 3) = "Type"
-            XlWb.ActiveSheet.ListObjects.Add(Microsoft.Office.Interop.Excel.XlListObjectSourceType.xlSrcRange,
-           XlWb.ActiveSheet.Range("A1", "C1"), , Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes).Name = "TeamList"
+            XlWb.ActiveSheet.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange,
+            XlWb.ActiveSheet.Range("A1", "C1"), , Excel.XlYesNoGuess.xlYes).Name = "TeamList"
+
+            'Add pivot table and chart
+            CreatePivots("BST")
 
             'Add team column formula
             XlSh.Select() 'Make XlSh the active sheet
@@ -149,11 +150,37 @@
 
         Catch ex As Exception
             MsgBox("Message: " & ex.Message & vbNewLine &
-                   "Error No: " & ex.HResult & vbNewLine &
-                   "Source: " & ex.Source & vbNewLine &
-                   "Stacktrace: " & ex.StackTrace)
+               "Error No: " & ex.HResult & vbNewLine &
+               "Source: " & ex.Source & vbNewLine &
+               "Stacktrace: " & ex.StackTrace)
         End Try
     End Sub
+    Sub CreatePivots(Tablename As String)
+        'Add pivot table and piovt chart
+        Dim XlSh As Excel.Worksheet
+        Dim XlWb As Excel.Workbook
+        Dim xlAp As Excel.Application
+        Dim PCache As Excel.PivotCache
+        Dim PTable As Excel.PivotTable
+        Dim PField As Excel.PivotField
+
+        xlAp = Globals.ThisAddIn.Application
+        XlWb = xlAp.ActiveWorkbook
+
+        PCache = XlWb.PivotCaches.Create(Excel.XlPivotTableSourceType.xlDatabase, Tablename)
+
+        'Add pivot table
+        XlSh = XlWb.Sheets.Add()
+        XlSh.Name = "Pivot Table"
+        PTable = XlSh.PivotTables.Add(PCache, XlSh.Range("A1"))
+        PTable.AddFields("name", "Month", "Cost Type")
+        PTable.AddDataField(PTable.PivotFields("Hours / Quantity"),, Excel.XlConsolidationFunction.xlSum)
+        PTable.ClearAllFilters()
+        PField = PTable.PivotFields("Cost Type")
+        PField.CurrentPage = "Labor"
+
+    End Sub
+
     Sub ReplaceSpaces()
         'ThisAddIn sub replaces non-breaking spaces (&HA0) with an empty string
         Dim XlSh As Excel.Worksheet
