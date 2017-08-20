@@ -217,7 +217,7 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="KBRibbon.xml" />
+    <EmbeddedResource Include="KBRibbon.xml" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

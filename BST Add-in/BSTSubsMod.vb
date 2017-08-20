@@ -9,6 +9,7 @@
             Dim CostType As String
             Dim EVCCol As Long
             Dim DetCol As Long
+            Dim BSTShName As String
             Dim XlSh As Excel.Worksheet
             Dim XlWb As Excel.Workbook
             Dim xlAp As Excel.Application
@@ -20,6 +21,7 @@
             xlAp = Globals.ThisAddIn.Application
             XlWb = xlAp.ActiveWorkbook
             XlSh = XlWb.ActiveSheet
+            BSTShName = XlSh.Name
             'MsgBox("Sheet:" & xlAp.Name & "-" & XlWb.Name & "-" & XlSh.Name)
             If XlSh.Cells(3, 2).value <> "Project Detail Charges" Then
                 MsgBox("Cell B3 does not contain 'Project Detail Charges'" & vbNewLine & "The report must be created via Project/ Reporting/ Project Detail Charges")
@@ -109,18 +111,30 @@
                 End If
                 Ry = Ry + 1
             Loop
-            XlSh.ListObjects.Add(Microsoft.Office.Interop.Excel.XlListObjectSourceType.xlSrcRange, XlSh.Range("A1", "Y" & LaasteRy), , Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes).Name = "BST"
+            XlSh.ListObjects.Add(Microsoft.Office.Interop.Excel.XlListObjectSourceType.xlSrcRange,
+               XlSh.Range("A1", "Y" & LaasteRy), , Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes).Name = "BST"
 
             'Add month column formula
             XlSh.Range("X2").Value = "=TEXT(P2,""yyyy-mm"")"
             'XlSh.Range("X2", "X" & LaasteRy).FillDown()
             'XlSh.Range("P2", "Q" & LaasteRy).NumberFormat = "yyyy-mm-dd" 'Format dates
 
-            'Add team column formula
-            XlSh.Range("Y2").Value = "=VLOOKUP([@[EVC Code]],Team,3)"
-            'XlSh.Range("Y2", "Y" & LaasteRy).FillDown()
+            XlWb.Sheets.Add(, XlSh)
+            XlWb.ActiveSheet.name = "Team"
 
-            XlWb.ActiveSheet.Range("A1", XlSh.Cells(LaasteRy, 24)).AutoFilter()
+            'Add Team table
+            XlWb.ActiveSheet.Cells(1, 1) = "EVC Code"
+            XlWb.ActiveSheet.Cells(1, 2) = "Name"
+            XlWb.ActiveSheet.Cells(1, 3) = "Type"
+            XlWb.ActiveSheet.ListObjects.Add(Microsoft.Office.Interop.Excel.XlListObjectSourceType.xlSrcRange,
+           XlWb.ActiveSheet.Range("A1", "C1"), , Microsoft.Office.Interop.Excel.XlYesNoGuess.xlYes).Name = "TeamList"
+
+            'Add team column formula
+            XlSh.Select() 'Make XlSh the active sheet
+            XlSh.Range("Y2").Value = "=VLOOKUP([@[EVC Code]],TeamList,3)"
+
+            'XlSh.Range("Y2", "Y" & LaasteRy).FillDown()
+            'XlSh.Range("A1", XlSh.Cells(LaasteRy, 24)).AutoFilter()
             xlAp.StatusBar = False
 
             xlAp.ScreenUpdating = True

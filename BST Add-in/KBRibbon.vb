@@ -25,11 +25,11 @@ Public Class KBRibbon
     End Sub
 
     Public Function GetCustomUI(ByVal ribbonID As String) As String Implements Office.IRibbonExtensibility.GetCustomUI
-        Return GetResourceText("ExcelAddIn2.KBRibbon.xml")
+        Return GetResourceText("BST_Add_in.KBRibbon.xml")
     End Function
 
 #Region "Ribbon Callbacks"
-    'Create callback methods here. For more information about adding callback methods, visit http://go.microsoft.com/fwlink/?LinkID=271226
+    'Create callback methods here. For more information about adding callback methods, visit https://go.microsoft.com/fwlink/?LinkID=271226
     Public Sub Ribbon_Load(ByVal ribbonUI As Office.IRibbonUI)
         Me.ribbon = ribbonUI
     End Sub
@@ -42,6 +42,7 @@ Public Class KBRibbon
     Public Sub OnAboutButton(ByVal control As Office.IRibbonControl)
         AboutBST()
     End Sub
+
 #End Region
 
 #Region "Helpers"
