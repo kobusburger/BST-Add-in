@@ -10,7 +10,7 @@
                supertip="Arrange the BST cost report into a data table. The report must be created via Project/ Reporting/ Project Detail Charges"/>
           <button id="ReplaceSpacesButton" label="Delete non-breaking spaces"
                screentip="Delete non-breaking spaces" onAction="onReplaceSpacesButton"
-               supertip="Some BST reports have non-breaking spaces and then Excel interprets the numbers as text. Deleting the non-breaking spaces solves the problem"/>
+               supertip="BST formats reports according to the Regional Settings and use a non-breaking space if the Thousand Seperator is a space. Excel interprets the numbers wityh non-breaking spaces as text. Deleting the non-breaking spaces solves the problem"/>
           <button id="AboutButton" label="About"
                screentip="About" onAction="OnAboutButton"/>
         </group>

@@ -13,6 +13,7 @@
             Dim XlWb As Excel.Workbook
             Dim xlAp As Excel.Application
 
+            LogTrackInfo()
             Project = ""
             Phase = ""
             Task = ""
@@ -203,5 +204,28 @@
     "Select 'Show Cost' and 'Print Descriptions'." & vbCrLf & "Written by Kobus Burger 083 228 9674 ©" & vbCrLf &
     "Version: " & PubVer
         MsgBox(Msg, , "BST Add-In")
+    End Sub
+    Sub LogTrackInfo()
+        Dim AppText As String
+        Dim FileName As String
+        Dim FilePath As String
+        Dim HostName As String
+        Dim IPAddress As String
+        Dim UserName As String = Environment.UserName
+        Dim PubVer As String
+        PubVer = "NoVer"
+        If System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed Then
+            PubVer = Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString
+        End If
+        HostName = System.Net.Dns.GetHostName()
+        IPAddress = System.Net.Dns.GetHostByName(HostName).AddressList(0).ToString()
+        FilePath = "\\aurecon.info\shares\ZAPTA\Admin\Admin\GAUZABLD\2 Modify\Building Electrical Electronic Services\Software\ExcelAddins\"
+        FileName = "tracking.txt"
+        AppText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & vbTab &
+                UserName & vbTab & vbTab &
+                "BSTAddin" & vbTab & PubVer & vbNewLine
+        On Error Resume Next
+        IO.File.AppendAllText(FilePath & FileName, AppText)
+        On Error GoTo 0
     End Sub
 End Module
