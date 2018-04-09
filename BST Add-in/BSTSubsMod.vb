@@ -209,16 +209,12 @@
         Dim AppText As String
         Dim FileName As String
         Dim FilePath As String
-        Dim HostName As String
-        Dim IPAddress As String
         Dim UserName As String = Environment.UserName
         Dim PubVer As String
         PubVer = "NoVer"
-        If System.Deployment.Application.ApplicationDeployment.IsNetworkDeployed Then
+        If Deployment.Application.ApplicationDeployment.IsNetworkDeployed Then
             PubVer = Deployment.Application.ApplicationDeployment.CurrentDeployment.CurrentVersion.ToString
         End If
-        HostName = System.Net.Dns.GetHostName()
-        IPAddress = System.Net.Dns.GetHostByName(HostName).AddressList(0).ToString()
         FilePath = "\\aurecon.info\shares\ZAPTA\Admin\Admin\GAUZABLD\2 Modify\Building Electrical Electronic Services\Software\ExcelAddins\"
         FileName = "tracking.txt"
         AppText = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss") & vbTab &
