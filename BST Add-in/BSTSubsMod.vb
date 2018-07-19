@@ -133,7 +133,7 @@
 
             'Add team column formula
             XlSh.Select() 'Make XlSh the active sheet
-            XlSh.Range("Y2").Value = "=VLOOKUP([@[EVC Code]],TeamList,3)"
+            XlSh.Range("Y2").Value = "=VLOOKUP([@[EVC Code]],TeamList,3,FALSE)"
 
             'XlSh.Range("Y2", "Y" & LaasteRy).FillDown()
             'XlSh.Range("A1", XlSh.Cells(LaasteRy, 24)).AutoFilter()
