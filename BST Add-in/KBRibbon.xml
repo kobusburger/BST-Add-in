@@ -8,9 +8,13 @@
           <button id="ArrangeButton" label="Arrange BST report"
                screentip="Arrange BST report" onAction="OnArrangeButton"
                supertip="Arrange the BST cost report into a data table. The report must be created via Project/ Reporting/ Project Detail Charges"/>
+          <button id="AddHoursTable" label="Add hours table"
+               screentip="Add pivot table with hours per person" onAction="onAddHoursTable"/>
+          <button id="AddCostChart" label="Add cost chart"
+               screentip="Add running total cost timelime chart" onAction="onAddCostChart"/>
           <button id="ReplaceSpacesButton" label="Delete non-breaking spaces"
                screentip="Delete non-breaking spaces" onAction="onReplaceSpacesButton"
-               supertip="BST formats reports according to the Regional Settings and use a non-breaking space if the Thousand Seperator is a space. Excel interprets the numbers wityh non-breaking spaces as text. Deleting the non-breaking spaces solves the problem"/>
+               supertip="BST formats reports according to the Regional Settings and use a non-breaking space if the Thousand Seperator is a space. Excel interprets the numbers with non-breaking spaces as text. Deleting the non-breaking spaces solves the problem"/>
           <button id="AboutButton" label="About"
                screentip="About" onAction="OnAboutButton"/>
         </group>

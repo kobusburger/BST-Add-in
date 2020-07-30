@@ -36,7 +36,13 @@ Public Class KBRibbon
     Public Sub OnArrangeButton(ByVal control As Office.IRibbonControl)
         ArrangeBSTCosts()
     End Sub
-    Public Sub onReplaceSpacesButton(ByVal control As Office.IRibbonControl)
+    Public Sub OnAddHoursTable(ByVal control As Office.IRibbonControl)
+        MAddHoursTable()
+    End Sub
+    Public Sub OnAddCostChart(ByVal control As Office.IRibbonControl)
+        MAddCostChart()
+    End Sub
+    Public Sub OnReplaceSpacesButton(ByVal control As Office.IRibbonControl)
         ReplaceSpaces()
     End Sub
     Public Sub OnAboutButton(ByVal control As Office.IRibbonControl)
