@@ -31,10 +31,10 @@
     </StartupObject>
     <IsWebBootstrapper>False</IsWebBootstrapper>
     <BootstrapperEnabled>true</BootstrapperEnabled>
-    <PublishUrl>\Publish\</PublishUrl>
+    <PublishUrl>Publish\</PublishUrl>
     <InstallUrl />
     <TargetCulture>en</TargetCulture>
-    <ApplicationVersion>1.1.0.27</ApplicationVersion>
+    <ApplicationVersion>1.1.0.28</ApplicationVersion>
     <AutoIncrementApplicationRevision>true</AutoIncrementApplicationRevision>
     <UpdateEnabled>true</UpdateEnabled>
     <UpdateInterval>0</UpdateInterval>
@@ -231,6 +231,7 @@
       <SubType>Code</SubType>
     </Compile>
     <None Include="app.config" />
+    <None Include="BST Add-in_1_TemporaryKey.pfx" />
     <None Include="BST Add-in_TemporaryKey.pfx" />
     <None Include="packages.config" />
     <None Include="ThisAddIn.Designer.xml">
@@ -283,10 +284,10 @@
     <SignManifests>true</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestKeyFile>BST Add-in_TemporaryKey.pfx</ManifestKeyFile>
+    <ManifestKeyFile>BST Add-in_1_TemporaryKey.pfx</ManifestKeyFile>
   </PropertyGroup>
   <PropertyGroup>
-    <ManifestCertificateThumbprint>A9A23C50F5DD6A1E61E7F69B3F277F15610FA5E5</ManifestCertificateThumbprint>
+    <ManifestCertificateThumbprint>BF268BFACEA0D9989ED1576CE824A18A1AEECF51</ManifestCertificateThumbprint>
   </PropertyGroup>
   <!-- Include the build rules for a Visual Basic project. -->
   <Import Project="$(MSBuildToolsPath)\Microsoft.VisualBasic.targets" />
