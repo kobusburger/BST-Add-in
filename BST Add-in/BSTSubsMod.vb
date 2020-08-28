@@ -134,14 +134,15 @@ Module BSTSubsMod
                 End If
                 Ry += 1
             Loop
-            'Create BST table
+
+            'Create BST table -------------------------------------------------------------------------------
             XlSh.ListObjects.Add(Excel.XlListObjectSourceType.xlSrcRange,
                XlSh.Range("A1").CurrentRegion, , Excel.XlYesNoGuess.xlYes).Name = BSTTableName
 
             'Add month column formula
             XlSh.Range("Z1").Value = "Month"
             XlSh.Range("Z2").Value = "=TEXT(R2,""yyyy-mm"")"
-            XlSh.Range("Z2", "X" & LaasteRy).FillDown()
+            XlSh.Range("Z2", "Z" & LaasteRy).FillDown()
             XlSh.Range("R2", "S" & LaasteRy).NumberFormat = "yyyy-mm-dd" 'Format dates
 
             ''Add Team table
