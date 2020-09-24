@@ -1,8 +1,4 @@
-﻿Imports System.Runtime.Remoting.Metadata.W3cXsd2001
-Imports System.Windows.Forms
-Imports Microsoft.Office.Interop.Excel
-
-Module BSTSubsMod
+﻿Module BSTSubsMod
     ReadOnly BSTTableName As String = "BSTData"
     Public tc As New Microsoft.ApplicationInsights.TelemetryClient
     Sub MAddHoursTable()
